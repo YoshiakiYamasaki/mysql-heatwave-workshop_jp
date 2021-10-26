@@ -1,4 +1,4 @@
-# Lab 4: 踏み台サーバーにMySQL Shellをインストール、サンプルデータのダウンロード
+# Lab 04: 踏み台サーバーにMySQL Shellをインストール、サンプルデータのダウンロード
 
 ## 学べること
 - OCI Cloud Shellと踏み台サーバーへの接続方法
@@ -25,11 +25,13 @@ Oracle Cloud Infrastructure (OCI) Cloud Shellは、OCIコンソールからア�
 ### **Step 4.3:**
 - Cloud Shellを起動すると、下記画面例のようなターミナルが表示されます。
   
+
 ![](./images/cloud-shell-2.png)
 
 ### **Step 4.4**
 - 操作しやすくする為に、ここでフォントサイズを変更することを推奨します。
   
+
 ![](./images/cloud-shell-3.png)
 
 ### **Step 4.5:**
@@ -41,6 +43,7 @@ Oracle Cloud Infrastructure (OCI) Cloud Shellは、OCIコンソールからア�
 - 保存してある秘密キーをCloud Shellウィンドウにドラッグ・アンド・ドロップします。_**ll**_ コマンドでファイル名を取得します。
 - もしくはCloud Shellウィンドウ左上のメニューから _**アップロード**_ を選択し、秘密キーのファイルをアップロードします。
   
+
 ![](./images/cloud-shell-5.png)
 
 ### **Step 4.7:**
@@ -136,4 +139,4 @@ _**tpch_queries_rapid.sql**_
 
 ここまでの操作で、Cloud Shellの起動、コンピュート・インスタンスに接続するための秘密キーをインポートしました。 更に、MySQL ShellとMySQLクライアントをインストールし、最後に後でベンチマークに使用する資材をダウンロードして解凍しました。
 
-**[<< Lab 3](/Lab3/README.md)** | **[Home](../README.md)** | **[Lab 5 >>](/Lab5/README.md)**
+**[<< Lab 03](/Lab03/README.md)** | **[Home](../README.md)** | **[Lab 05 >>](/Lab05/README.md)**

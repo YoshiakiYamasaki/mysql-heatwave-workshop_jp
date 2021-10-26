@@ -1,4 +1,4 @@
-# Lab 7: HeatWaveを有効にしてクエリを実行する
+# Lab 07: HeatWaveを有効にしてクエリを実行する
 
 ## 学べること
 - HeatWaveを有効にする方法を学び、HeatWaveが無効になっている場合とクエリ実行時間を比較する
@@ -14,6 +14,7 @@ HeatWaveクラスタのサイズは、ロードされたテーブルと列、お
 ### **Step 7.1:**
 - OCIコンソールでHeatWaveノードが _**アクティブ**_ の状態になっていることを確認します。
   
+
 ![](./images/HW34_hw.png)
 
 
@@ -161,7 +162,7 @@ diff -y rapid_rt_profiles.log mysql_rt_profiles.log
 
 ## 全て完了です！Well Done!
 
-踏み台サーバーではなく、Oracle Bastion Serviceを使用する方法や、MySQL Database Serviceの高可用性構成をプロビジョニングするための2つのボーナストラックがあります！
+HeatWaveとOracle Analytics Cloudを組み合わせて利用する演習や、踏み台サーバーではなくOracle Bastion Serviceを使用してMDSへ接続する方法、MDSの高可用性構成をプロビジョニングする方法を案内した3つのボーナストラックがあります！
 引き続き演習を続けましょう。
 
-**[<< Lab 6](/Lab6/README.md)** | **[Home](../README.md)** | **[Lab 8a >>](/Lab8a/README.md)**
+**[<< Lab 06](/Lab06/README.md)** | **[Home](../README.md)** | **[Lab 08 >>](/Lab08/README.md)**

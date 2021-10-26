@@ -1,4 +1,4 @@
-# Lab 6: MDSへのデータインポートとHeatWaveへのデータロード
+# Lab 06: MDSへのデータインポートとHeatWaveへのデータロード
 
 ## 学べること
 - MDSに接続し、データを格納する方法
@@ -113,4 +113,4 @@ ORDER BY l_returnflag , l_linestatus;
 次の演習でHeatwaveサービスを有効にしてクエリを再度実行し、結果を比較してみましょう！
 
 
-**[<< Lab 5](/Lab5/README.md)** | **[Home](../README.md)** | **[Lab 7 >>](/Lab7/README.md)**
+**[<< Lab 05](/Lab05/README.md)** | **[Home](../README.md)** | **[Lab 07 >>](/Lab07/README.md)**

@@ -1,4 +1,4 @@
-# Lab 5: HeatWaveクラスタをMySQL Database Serviceに追加する
+# Lab 05: HeatWaveクラスタをMySQL Database Serviceに追加する
 
 ## 学べること
 - HeatWaveクラスタを有効にする方法
@@ -23,11 +23,13 @@ DBシステム一覧から先に作成したインスタンスをクリックし
 ### **Step 5.2:**
 - 画面下部にスクロールして左側に表示されているメニューから _**HeatWave**_ を選択します。
   
+
 ![](./images/HW30_hw.png)
 
 ### **Step 5.3:**
 - _**HeatWaveクラスタの追加**_ ボタンをクリックします。
   
+
 ![](./images/HW31_hw.png)
 
 ### **Step 5.4:**
@@ -39,11 +41,13 @@ _**HeatWaveクラスタの追加**_ ボタンをクリックします。
 ### **Step 5.5:**
 - メインページに戻り、作成状況を確認できます。 数秒後にノードが _**作成中**_ のステータスになっているはずです。
   
+
 ![](./images/HW33_hw.png)
 
 ### **Step 5.6:**
 - 完了すると _**アクティブ**_ のステータスになります。 この処理には少し時間がかかります。 
   
+
 ![](./images/HW34_hw.png)
 
 ## まとめ
@@ -53,4 +57,4 @@ MySQL DBシステムノードには、クラスタ管理、クエリスケジュ
 **[Oracle Cloud上のHeatWaveサービス](https://docs.oracle.com/ja-jp/iaas/mysql-database/doc/heatwave.html)**
 それではHeatWaveクラスタを有効にする前に、次の演習ではMySQL DBシステムでクエリを実行してみましょう。
 
-**[<< Lab 4](/Lab4/README.md)** | **[Home](../README.md)** | **[Lab 6 >>](/Lab6/README.md)**
+**[<< Lab 04](/Lab04/README.md)** | **[Home](../README.md)** | **[Lab 06 >>](/Lab06/README.md)**

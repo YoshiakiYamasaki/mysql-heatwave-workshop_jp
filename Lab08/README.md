@@ -1,142 +1,197 @@
-# Bonus Lab: Use Analytics Cloud on MySQL Database Service powered by Heatwave
+# Lab 08: OAC用のサンプルデータをMDS及びHeatWaveにロードする。Oracle Analytics Cloud(OAC) を構成して、OACからMDS for HeatWaveに接続する。
 
-## Key Objectives:
-- Learn how to use Oracle Analytics Cloud on MySQL Database Service powered by HeatWawe.
+## 学べること:
+- OAC用のサンプルデータのダウンロード、MDSおよびHeatWaveへサンプルデータをロードする方法
+- Oracle Analytics Cloud(OAC)及びPrivate Access Channel(PAC)の構成方法
+- OACからPAC経由でMDSへ接続する方法
 
-## Introduction
+## 概要
 
-Oracle Analytics Cloud gives you a complete, connected, collaborative platform that brings the power of data and analytics to every process, interaction, and decision in every environment – cloud, on-premises, desktop and data center. You can read more **[here!](https://www.oracle.com/middleware/technologies/oracle-analytics-cloud.html)**
+Oracle Analytics CloudはOCI上で利用できる高機能なBIサービスです。このLabでは、まずはOAC用のサンプルデータをダウンロードしてMDS及びHeatWaveにロードします。その後、OACを構成し、次にPrivate Access Channel(PAC)を構成します。PACを使うことで、OACからプライベートIPアドレスにアクセス可能になるため、HeatWave用のMDSに接続可能になります。
 
-## Prerequisite
+　※MDSはパブリックIPを持てない仕様になっているため、何らしかの手法でプライベートIPにアクセスする必要があります。
+　　セキュリティの観点等から、PACを使ったアクセスを推奨しています。
 
-- To be able to successfully test bonus lab please complete all the previous labs in this workshop.
-  
-_**To address your question you can send it on**_ **[Discord mysql-heatwave channel.](https://discord.gg/73Gx9Ws7tM)** 
+## 前提条件
 
-## Steps
+- Lab00～Lab05までを完了している必要があります。(Lab04aは除く) 
+
+## 手順
 
 ### **Step 8.1:**
+- Cloud ShellのSSH接続に戻ります。
 
-- From the Cloud shell connect to MySQL DB System:
+![](./images/HW35_hw.png)
+
+- 以下のコマンドを実行して、演習用資材をダウンロード、解凍します。
+```
+cd /home/opc
+```
+
+```
+wget https://objectstorage.ap-osaka-1.oraclecloud.com/p/2b0vXZXLx4M4dBREKIAt77EpkGls9KqNb-YGBZg0r0EkDMd-5eL2MCNTHLEKP-Td/n/idazzjlcjqzj/b/workshop/o/oac_hands_on.zip
+
+```
+
+![](./images/cloud-shell-13.png)
+
+```
+unzip oac_hands_on.zip
+```
+
+![](./images/cloud-shell-14.png)
+
+
+解凍できたら次の手順に進みます。
+
+### **Step 8.2:**
+- _**ll**_ コマンドを実行して展開された資材に以下のディレクトリ、ファイルが含まれていることを確認します。
+
+_**check_heatwave.sql**_
+_**dbuser01_offload.sql**_
+_**oac_hands_on**_
+
+
+![](./images/cloud-shell-15.png)
+
+
+### **Step 8.3:**
+- 以下のコマンドを実行してMySQL Shellを使用してMDSに接続します。
+```
+mysqlsh --user=admin --password=Oracle.123 --host=<mysql_private_ip_address> --port=3306 --js
+```
+
+- - MySQL ShellプロンプトでMDSにデータが格納できるか確認します。
+```
+util.loadDump("/home/opc/oac_hands_on", {dryRun: true, resetProgress:true, ignoreVersion:true})
+```
+![](./images/cloud-shell-16.png)
+
+上記のコマンドは予行演習オプション(dryRun: true)が指定されていおり、実行時に何もエラーが発生しなければ次のコマンドを実行してデータを格納します。
+```
+util.loadDump("/home/opc/oac_hands_on", {dryRun: false, resetProgress:true, ignoreVersion:true})
+```
+![](./images/cloud-shell-17.png)
+
+### **Step 8.4:**
+- MySQL Shellで以下のコマンドを実行してデータが格納されたことを確認します。
+
+```
+\sql
+
+SHOW DATABASES;
+```
+(実行結果)
+```
++--------------------+
+| Database           |
++--------------------+
+| dbuser01           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| tpch               |
++--------------------+
+```
+続いて、以下のコマンドを実行します。
+```
+USE dbuser01;
+
+SHOW TABLES;
+```
+(実行結果)
+```
++--------------------+
+| Tables_in_dbuser01 |
++--------------------+
+| CUSTOMER           |
+| RFM                |
++--------------------+
+```
+
+### **Step 8.5:**
+- MySQL Shellで以下のコマンドを実行してdbuser01データベース内のテーブルをHeatWaveにロードします。
+
+```
+CALL sys.heatwave_load (JSON_ARRAY("dbuser01"),NULL);
+```
+
+
+### **Step 8.6:**
+
+- 画面左上のメニューから  _**アナリティクスとAI -> アナリティクス・クラウド**_ を選択します。
   
-```
-mysqlsh --user=admin --password=Oracle.123 --host=<mysql_private_ip_address> --port=3306 --database=tpch --sql
-```
-
-Run the following query at this stage,
-
-```
-CREATE VIEW myAnalyticsView AS SELECT * 
-    FROM customer JOIN orders ON customer.C_CUSTKEY=orders.O_CUSTKEY
-    JOIN nation ON customer.C_NATIONKEY=nation.N_NATIONKEY;
-    
-```
-![](./images/HW36_hw.png)
-
-Click the _**hamburger menu**_ in the upper left corner and click on _**Analytics -> Analytics Cloud**_.
 
 ![](./images/one.png)
 
-### **Step 8.2:**
-Click _**Create instance**_ and in the new window, fill out the fields as shown in the image below. Make sure to select 2 OCPUs, the Enterprise version and the _**License Included**_ button. Finally click _**Create**_ to start the provisioning of the instance.
-_**Note:**_ It takes about _**15-20 minutes**_ to create the OAC instance so go get a coffee in the meantime!
+### **Step 8.7:**
+_**インスタンスの作成**_ をクリックして表示されたウインドウで、名前に _**OACDemo**_ と入力し、容量を _**2 OCPU**_ にします。また、機能セットが _**Enterprise Analytics**_ 、ライセンス・タイプが _**ライセンス込み**_ であることを確認して、 _**作成**_ をクリックします。
+_**Note:**_ インスタンスの作成には _**15-20 分程度**_ かかります。
 
 ![](./images/two.png)
 
-### **Step 8.3:**
-When the status of the instance changes to _Active_, click on the button _**Configure Private Access Channel**_ to create a private access to the MySQL Database Service Instance.
+### **Step 8.8:**
+ステータスが _**ACTIVE**_ になったら、左下の _**プライベート・アクセス・チャネル**_ をクリックし、 _**プライベート・アクセス・チャネルの構成**_ をクリックします。
 
 ![](./images/three.png)
 
-### **Step 8.4:**
-In the next window you first need to choose a name for the channel. Then, fill in the VCN name with the same one where you provisioned the MySQL Database Service and the Heatwawe cluster. Make sure you select the correct subnet! (In lab 1 you had the option to select Private Subnet or Public Subnet) make sure you select the correct one otherwise you won't be able to connect!
-Check _**Virtal Cloud Network's domain name as DNS zone**_, and remove the additional _**DNS Zone**_, and finally click _**Configure**_.  
+### **Step 8.9:**
+表示されたウインドウで、名前に _**PrivateChannel**_ 、仮想クラウド・ネットワークを _**analytics_vcn_test**_ 、サブネットを _**Private Subnet-analytics_vcn_test**_ にします。また、DNSゾーンの _**DNSゾーンとしての仮想クラウド・ネットワークのドメイン名(analyticsvcntes.oraclevcn.com)**_ にチェックを入れます。そして、追加で表示されたDNSゾーンの入力行を右側の _**✕**_ をクリックして削除します。その後、 _**構成**_ をクリックしてプライベート・アクセス・チャネルを構成します。
 
-_**Note:**_ It will take about _**50 minutes**_ to create the private channel so go get a nice cup of tea to kill the time! 
+_**Note:**_ プライベート・アクセス・チャネルの構成には _**40分-50分程度**_ かかります。 
 
 ![](./images/four.png)
 
-### **Step 8.5:**
-When the status of the instance changes to _Active_, click on the button _**Analytics Home Page Channel**_ to access Oracle Analytics Cloud!
+### **Step 8.10:**
+ステータスが _**ACTIVE**_ になったら、_**分析ホームページ**_ ボタンを押します。
 
 ![](./images/five.png)
 
-### **Step 8.6:**
-We now want to connect to our MySQL Database Service, so from the top right corner click _**Create**_ and then _**Connection**_ as shown in the picture below. From the list of connectors, select _**MySQL**_
+### **Step 8.11:**
+MySQL Database Serviceへの接続を作成します。右上の _**作成**_ をクリックし、_**接続**_ を選択します。
 
 ![](./images/six.png)
 
-### **Step 8.7:**
+### **Step 8.12:**
 
-Browse the connection type or simply type in the search section _**MySQL**_, and Click it.
+接続タイプを選択する画面が表示されるので、 _**MySQL**_ を選択します。
 
 ![](./images/HW36.PNG)
 
-In the new window we have a lot of information we need to provide. The host name we need to provide is a little bit tricky, we need to provide the Internal FQDN (fully qualified domain name) of the MySQL Database Instance. To find this out, you need to go back to the MySQL instance details.
 
-In the section Endpoint you'll find all the information required. See the following images if you need guidance. 
+
+表示されるウインドウに接続に必要な情報を入力します。接続名には _**HeatWave**_ を入力します。
+また、ホスト名にはMDSの _**Internal FQDN**_ を入力する必要があることに注意して下さい。Internal FQDNを確認するためには、MDSの詳細ページを参照する必要があります。 
 
 ![](./images/eight.png)
 
 
-As database name, you need to use _**tpch**_, the database we used in the previous labs, and fill in with the credentials metioned when creating the MySQL DB System
+データベース名には _**dbuser01**_ を入力して下さい。また、ユーザー名、パスワードはMDS作成時に指定したものを入力して下さい。
 
 ```
 username: admin
 password: Oracle.123
 ```
-After you filled out everything, click on _**Save**_.
+必須項目を入力し終わったら、 _**保存**_ をクリックします。
 
 ![](./images/seven.png)
 
-You Oracle Analytics Instance is now connected to your MySQL Database Service powered by Heatwawe.
+接続が正常に作成出来れば、Oracle Analytics Cloud から MySQL Database Service for Heatwawe接続してデータを参照できるようになります。
 
-### **Step 8.8:**
-Let's now use this connection to create a very simple dashboard! From the top right corner click _**Create**_ and this time click on _**Dataset**_ as shown in the picture below.
-
-![](./images/nine.png)
-
-### **Step 8.9:**
-From the new window select the connection we just created.
-
-![](./images/ten.png)
-
-Click on the _**tpch**_ database as shown below.
-
-![](./images/eleven.png)
-
-### **Step 8.10:**
-Now, you'll see all the database's tables and views. Select the view we created for this lab called _**myAnalyticsView**_. Then on the button, _**Add All**_ to add all the columns and then on the top right corner, _**Add**_
-
-![](./images/twelve.png)
-
-![](./images/thirteen.png)
-
-We are creating a Dataset based on all the columns of the view _**myAnalyticsView**_
-
-![](./images/fourteen.png)
-
-### **Step 8.11:**
-Now you can see the data that has been retrieved. From the _**Reccomendations**_ column on the right we could use the suggestions to clean the data. We'll leave this topic for another time but feel free to check Oracle's documentation on how to use this useful feature!
-
-To move forward click on _**Create Project**_  button on the top right corner. You will see the Visualisation screen where you can start building your dashboards!
-![](./images/fifhteen.png)
-
-### **Step 8.12:** CREATE YOUR FIRST DASHBOARD
-
-From the left, select the column _**N_NAME**_ and then, while pressing CTRL (or Comamnd if you are on Mac) click _**O_TOTALPRICE**_, right click and select _**Create Best Visualization**.
-
-![](./images/sisteen.png)
-
-A nice histogram will appear after few seconds later and we'll see that every country contributes equally to the company's revenues.
-
-![](./images/seventeen.png)
+この後のOACのハンズオン手順は、[こちら](https://objectstorage.ap-osaka-1.oraclecloud.com/p/lUQ4xrSZputspcfF9LGd21C3ey62MPA4KVBGNdalPEGA7aB2jgdY4XZ4MyIoMA9e/n/idazzjlcjqzj/b/workshop/o/OAC%E4%BD%93%E9%A8%93%E3%83%8F%E3%83%B3%E3%82%BA%E3%82%AA%E3%83%B3.zip)の資料で説明します。また、[こちら](https://videohub.oracle.com/channel/Oracle+Japan+Analyitcs+Channel/228666053)の動画でもハンズオン手順を案内していますが、この動画ではDBにHeatWaveではなく、Oracle Autonomous Data Warehouse(ADW)を使用していることに注意して下さい。
 
 
-## Conclusion
 
-You now have all the tools to discover insights in your data!
+### **備考:**
 
-If you want to discover more on how to use Oracle Analytics Cloud check our **[Tutorials](https://docs.oracle.com/en/cloud/paas/analytics-cloud/tutorials.html)** and **[Live Labs!](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/livelabs-workshop-cards?p100_focus_area=28&me=117&clear=100&session=107258786260970)**
+・OACからのアクセスでHeatWaveが使えているかどうかは、ステータス変数 _**rapid_query_offload_count**_ の値が増加するかどうかで確認できます。確認する時は、 MySQL ShellでMDSに接続し、SQLモードにした状態で以下のコマンドを実行します。
 
-**[<< Go to Lab 7](/Lab7/README.md)** | **[Home](../README.md)** 
+```
+SHOW STATUS LIKE 'rapid_query_offload_count';
+```
+
+・OACからのアクセスで思うようにパフォーマンスが出ず、 _**rapid_query_offload_count**_ の値も増加しない場合は、HeatWaveが正しく使えていない可能性がありますので、[MySQLお問い合わせ窓口](MySQL-Sales_jp_grp@oracle.com)までお問い合わせ下さい。
+
+
+**[<< Lab 07](/Lab07/README.md)** | **[Home](../README.md)** | **[Lab 09 >>](/Lab09/README.md)**

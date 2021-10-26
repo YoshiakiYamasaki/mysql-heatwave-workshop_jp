@@ -1,4 +1,4 @@
-# Lab 8a: OCI Bastion Serviceを利用してMDSをリモートで使う
+# Lab 09: OCI Bastion Serviceを利用してMDSをリモートで使う
 
 ## 学べること
 
@@ -15,7 +15,7 @@ OCI Bastion Serviceについては、**[OCI Bastion Service](https://docs.oracle
 
 ### **Step 1.1:**
   OCIコンソール画面左上のメニューから _**Identity & Security >> 要塞**_ を選択します。
-  
+
 ![](./images/bastion_service1.png)
 
 ### **Step 1.2:**
@@ -31,14 +31,14 @@ Fill in the details of the following fields:
  * _**CIDRブロック許可リスト**_: 接続元のIPアドレスを指定します。(もし不明であれば、0.0.0.0/0をテスト用に指定します)
 
 _**要塞の作成**_ をクリックしてBastion Serviceを開始します。
-  
+
 ![](./images/bas-3.png)
 
 ### **Step 1.4:** 
 Bastion Serviceが開始されたら_**セッションの作成**_ をクリックします。
- 
+
  ![](./images/bas-4.png)
- 
+
 ### **Step 1.5:**
 Fill in the details of the following fields:
  * _**セッション・タイプ**_: _**SSHポート転送セッション**_ をドロップダウンリストから選択します。
@@ -47,9 +47,9 @@ Fill in the details of the following fields:
  * _**IPアドレス**_: MDSインスタンスのIPアドレスを指定します。
  * _**ポート**_: 3306 (MDSのデフォルトのポート番号)を指定します。
  * _**SSHキーの追加**_: _**SSHキー・ペアの作成**_ を選択し、and click on _**秘密キーの保存**_ をクリックします。(必要に応じて公開キーも保存してください)
- 
+
 _**セッションの作成**_ をクリックします。
- 
+
 ![](./images/bas-5.png)
 
 ## Bastion service経由でMDSに接続する
@@ -93,4 +93,4 @@ mysql -uadmin -h127.0.0.1 -P3306 -pPassword
 
 Bastion用のコンピュート・インスタンスを作成せずに、MDSインスタンスに接続するOCI Bastion Serviceを作成する方法を学習しました。 次の演習では、MDSの高可用性構成を作成してみます。
 
-**[<< Lab 7](/Lab7/README.md)** | **[Home](../README.md)** | **[Lab 8b >>](/Lab8b/README.md)**
+**[<< Lab 08](/Lab08/README.md)** | **[Home](../README.md)** | **[Lab 10 >>](/Lab10/README.md)**

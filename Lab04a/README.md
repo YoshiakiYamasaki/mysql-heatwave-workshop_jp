@@ -1,4 +1,4 @@
-# Lab 4a: MySQL Routerインスタンスを作成し、MDS/HeatWaveに接続する
+# Lab 04a: MySQL Routerインスタンスを作成し、MDS/HeatWaveに接続する
 
 ## 実施すること
 - MySQL Routerのインストール方法
@@ -229,4 +229,4 @@ show databases;
 
 **[MySQL Router](https://www.mysql.com/jp/products/enterprise/router.html)**
 
-**[<< Lab 4](/Lab4/README.md)** | **[Home](../README.md)** | **[Lab 5 >>](/Lab5/README.md)**
+**[<< Lab 04](/Lab04/README.md)** | **[Home](../README.md)** | **[Lab 05 >>](/Lab05/README.md)**
