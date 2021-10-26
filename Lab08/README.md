@@ -48,7 +48,9 @@ unzip oac_hands_on.zip
 - _**ll**_ コマンドを実行して展開された資材に以下のディレクトリ、ファイルが含まれていることを確認します。
 
 _**check_heatwave.sql**_
+
 _**dbuser01_offload.sql**_
+
 _**oac_hands_on**_
 
 
