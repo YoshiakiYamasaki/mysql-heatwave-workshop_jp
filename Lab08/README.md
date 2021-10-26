@@ -193,7 +193,7 @@ password: Oracle.123
 SHOW STATUS LIKE 'rapid_query_offload_count';
 ```
 
-・OACからのアクセスで思うようにパフォーマンスが出ず、 _**rapid_query_offload_count**_ の値も増加しない場合は、HeatWaveが正しく使えていない可能性がありますので、[MySQLお問い合わせ窓口](MySQL-Sales_jp_grp@oracle.com)までお問い合わせ下さい。
+・OACからのアクセスで思うようにパフォーマンスが出ず、 _**rapid_query_offload_count**_ の値も増加しない場合は、HeatWaveが正しく使えていない可能性がありますので、MySQLお問い合わせ窓口(MySQL-Sales_jp_grp@oracle.com)までお問い合わせ下さい。
 
 
 **[<< Lab 07](/Lab07/README.md)** | **[Home](../README.md)** | **[Lab 09 >>](/Lab09/README.md)**
