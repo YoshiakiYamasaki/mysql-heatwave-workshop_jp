@@ -16,6 +16,11 @@ Oracle Analytics CloudはOCI上で利用できる高機能なBIサービスで�
 
 - Lab00～Lab05までを完了している必要があります。(Lab04aは除く) 
 
+## このステップの構成図
+![](./images/Lab08_1.PNG)
+![](./images/Lab08_2.PNG)
+![](./images/Lab08_3.PNG)
+
 ## 手順
 
 ### **Step 8.1:**

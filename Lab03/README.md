@@ -8,6 +8,8 @@
 
 HeatWaveを有効にすると、HeatWaveのシェイプ（MySQL.HeatWave.VM.Standard.E3）と1TBのデータストレージを特徴とするスタンドアロンDBシステムをデプロイします。 DBシステムとHeatWaveクラスターは同じシェイプを使用する必要があります。詳細は **[HeatWave](https://docs.oracle.com/ja-jp/iaas/mysql-database/doc/heatwave1.html#GUID-9401C69A-B379-48EB-B96C-56462C23E4FD)** を参照してください。
 
+## このステップの構成図
+![](./images/Lab03.PNG)
 
 ## 手順
 
