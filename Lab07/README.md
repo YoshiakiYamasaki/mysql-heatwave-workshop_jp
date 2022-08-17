@@ -130,7 +130,7 @@ HeatWaveがどのように機能し、パフォーマンスが向上するかを
 次に、スクリプトtpch_queries_rapid.sqlを実行して、HeatWaveを使用して同じクエリを実行します。
 最後に、結果を比較します。
 
-Fこの演習では、MySQL Shellの代わりに、MySQLクライアントを使用します。
+この演習では、MySQL Shellの代わりに、MySQLクライアントを使用します。
 次のコマンドを実行します。
 ```
 mysql -h<mysql private ip address> -uadmin -pOracle.123 -Dtpch < tpch_queries_rapid.sql
