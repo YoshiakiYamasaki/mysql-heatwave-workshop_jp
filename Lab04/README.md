@@ -67,11 +67,11 @@ _**Warning: Permanently added '130.******' (ECDSA) to the list of known hosts.**
 - 次のコマンドを実行してMySQL ShellとMySQLクライアントをインストールします。 
   
 ```
-wget https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm
+wget https://dev.mysql.com/get/mysql80-community-release-el8-4.noarch.rpm
 ```
 ![](./images/cloud-shell-6.png)
 ```
-sudo yum localinstall mysql80-community-release-el7-5.noarch.rpm
+sudo yum localinstall mysql80-community-release-el8-4.noarch.rpm
 ```
 ![](./images/cloud-shell-7.png)
 
