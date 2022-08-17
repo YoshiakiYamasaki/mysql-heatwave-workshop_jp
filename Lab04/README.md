@@ -23,6 +23,7 @@ Oracle Cloud Infrastructure (OCI) Cloud Shellは、OCIコンソールからア�
 ### **Step 4.2:**
 - 踏み台サーバーに接続するためにOCIコンソールに付属しているLinuxターミナルであるCloud Shellを利用します。
 　Cloud Shellにアクセスするために, 画面右上に表示されているOCIリージョンの右側に表示されているCloud Shellアイコンをクリックします。
+ 
 ![](./images/cloud-shell-1.png)
 
 ### **Step 4.3:**
