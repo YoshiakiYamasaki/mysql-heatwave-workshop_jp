@@ -22,28 +22,22 @@ HeatWaveクラスタのサイズは、ロードされたテーブルと列、お
 
 
 ### **Step 7.2:**
-- HeatWaveノードが _**アクティブ**_ となっている場合は、以下のコマンドを使用して踏み台サーバー(SSH接続)でサンプルデータ'tpch'をHeatWaveにロードします。
+- HeatWaveノードが _**アクティブ**_ となっている場合は、以下のコマンドを実行してMySQL Shellを使用してMDSに接続します。
 
 ```
-mysqlsh --user=admin --password=Oracle.123 --host=<mysql_private_ip_address> --port=3306 --sql < tpch_offload.sql
+mysqlsh --user=admin --password=Oracle.123 --host=<mysql_private_ip_address> --port=3306 --js
+```
+
+- 次に、以下のコマンドを実行してtpchデータベース内のテーブルをHeatWaveノードにロードします。
+
+```
+CALL sys.heatwave_load(JSON_ARRAY("tpch"),NULL);
+\quit
 ```
 
 ![](./images/HW34_2_hw.png)
 
  実行できたら _**Step 7.3**_ に進みます。
-
-tpch_offload.sqlは、「RAPID_COLUMN = ENCODING = SORTED」（オプションの手順）を使用して一部の列に辞書エンコーディングを適用する以外に、次の値を設定してテーブルをHeatWaveにロードします。
-
-- **以下のコマンドは実行する必要はありません** 
-
-alter table <table_name> secondary_engine=rapid;
-
-alter table  <table_name> secondary_load;
-
-スクリプト全体を参照するには、以下のLinuxコマンドを実行します。
-```
-cat tpch_offload.sql
-```
 
 ### **Step 7.3:**
 - それでは、HeatWaveを使ってクエリを実行してみましょう。
