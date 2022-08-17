@@ -81,7 +81,6 @@ _**確認メッセージが表示された場合は "y"を入力します**_
 sudo yum module disable mysql
 ```
 ![](./images/cloud-shell-7-2.png)
-
 _**確認メッセージが表示された場合は "y"を入力します**_ 
 
 ```
