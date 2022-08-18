@@ -25,7 +25,7 @@ HeatWaveクラスタのサイズは、ロードされたテーブルと列、お
 - HeatWaveノードが _**アクティブ**_ となっている場合は、以下のコマンドを実行してMySQL Shellを使用してMDSに接続します。
 
 ```
-mysqlsh --user=admin --password=Oracle.123 --host=<mysql_private_ip_address> --port=3306 --
+mysqlsh --user=admin --password=Oracle.123 --host=<mysql_private_ip_address> --port=3306 --sql
 ```
 
 - 次に、以下のコマンドを実行してtpchデータベース内のテーブルをHeatWaveノードにロードします。
